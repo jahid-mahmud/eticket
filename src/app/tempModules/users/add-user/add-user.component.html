@@ -1,0 +1,78 @@
+<div fxFlex="100" fxLayout="column">
+    <div>
+      <fuse-card class="min-h-70">
+        <div fxFlex="100" fxLayout="column" class="bg-card shadow overflow-hidden">
+  
+          <!-- Header -->
+          <itsm-header-bar [title]="customerId ? 'Update Customer' : 'Add New User'" [backUrl]="backUrl">
+            <button type="button" mat-stroked-button [color]="'disabled'" (click)="onClickBack()">
+              Cancel
+            </button>
+            <button class="ml-5" type="button" mat-flat-button [color]="'primary'" 
+             (click)="onClickSave()">
+              {{ customerId ? 'Update' : 'Save'}}
+            </button>
+          </itsm-header-bar>
+  
+          <form [formGroup]="form">
+            <div fxLayout="column" fxFlex="100">
+              <div class=" add-wrapper">
+                <div class="grid grid-cols-2 gap-x-4">
+                  <div class="cols-span-2">
+                    <h2 class="text-xl font-bold mb-2 mt-2">Basic info</h2>
+                  </div>
+  
+                  <div class="col-span-2">
+                    <!-- Name field -->
+                    <mat-form-field class="w-full">
+                      <mat-label class="text-sm">Customer name</mat-label>
+                      <input id="name" placeholder="Enter customer name" formControlName="name" matInput required>
+                      <mat-error *ngIf="hasValidationError('name')">
+                        Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div>
+                    <!-- BIN field -->
+                    <mat-form-field class="w-full">
+                      <mat-label class="text-sm">BIN</mat-label>
+                      <input id="bin" placeholder="Type BIN" formControlName="bin" matInput>
+                      <mat-error *ngIf="hasValidationError('bin','pattern')">
+                        BIN is not valid
+                      </mat-error>
+                      <mat-error *ngIf="hasValidationError('bin','minlength')">
+                        BIN should be 13 digits
+                      </mat-error>
+                      <mat-error *ngIf="hasValidationError('bin','maxlength')">
+                        BIN should be 13 degit
+                      </mat-error>
+                      <mat-error *ngIf="hasValidationError('bin','min')">
+                        BIN is not acceptable
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div>
+                    <!-- Customer field -->
+                    <mat-form-field class="w-full">
+                      <mat-label class="text-sm">Customer Type</mat-label>
+                      <mat-select [placeholder]="'Select Type'" [formControlName]="'type'" [required]="true">
+                        <mat-option *ngFor="let type of typeList" [value]="type">{{type}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="hasValidationError('type')">
+                        Bin is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                </div>
+  
+              </div>
+            </div>
+          </form>
+        </div>
+      </fuse-card>
+    </div>
+  </div>

@@ -1,0 +1,34 @@
+<!-- Basic search -->
+<ng-container *ngIf="appearance === 'basic'">
+    <div class="w-full" [ngClass]="{ 'sm:min-w-80': !width }" [ngStyle]="{'min-width': width ? width : null}">
+        <mat-form-field class="fuse-mat-no-subscript w-full" [ngClass]="{'hide-border': hideBorder}">
+            <mat-icon matPrefix [svgIcon]="'heroicons_outline:search'"></mat-icon>
+            <input matInput [formControl]="searchControl" [matAutocomplete]="matAutocomplete"
+                [placeholder]="placeholder" (keydown)="onKeydown($event)" (keyup)='keyUp.next($event.target.value)'>
+        </mat-form-field>
+        <mat-autocomplete class="max-h-128 mt-1 rounded" [disableRipple]="true" #matAutocomplete="matAutocomplete">
+            <ng-container *ngIf="showResults">
+                <mat-option class="h-14 px-5 py-0 text-md pointer-events-none text-secondary bg-transparent"
+                    *ngIf="results && !results.length">
+                    No results found!
+                </mat-option>
+                <ng-container *ngFor="let result of results; let i=index; trackBy: trackByFn">
+                    <mat-option *ngIf="searchTemplate; else noTemplate" class="group relative h-auto px-5 py-0 text-md"
+                    (click)="onClickSearchItem(result)">
+                        <ng-container *ngTemplateOutlet="searchTemplate;
+                            context: { search: result }">
+                            
+                        </ng-container>
+                    </mat-option>
+                    <ng-template #noTemplate>
+                        <mat-option *ngIf="i==0" class="group relative h-14 px-5 py-0 text-md">
+                            No Template Provided
+                        </mat-option>
+                    </ng-template>
+
+                </ng-container>
+            </ng-container>
+
+        </mat-autocomplete>
+    </div>
+</ng-container>

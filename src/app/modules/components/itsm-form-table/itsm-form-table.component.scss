@@ -1,0 +1,45 @@
+
+.responsive {
+    overflow: auto;
+    height: 100%;
+}
+
+.form-table {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #dfe4eb;
+    border-radius: 2px 2px 2px 2px;
+    word-wrap: break-word;
+    thead {
+        position: sticky;
+        top: -1px;
+        color: #757575;
+        height: 36px;
+        z-index: 2;
+        .default-th {
+            font-size: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        span {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        th {
+            background-color: #EEEEEE;
+        }
+    }
+    tbody {
+        tr {
+            border-bottom: 1px solid #dfe4eb;
+        }
+        td {
+            min-height: 48px;
+            height: 48px;
+        }
+
+        .default-td {
+            font-size: 13px;
+        }
+    }
+}

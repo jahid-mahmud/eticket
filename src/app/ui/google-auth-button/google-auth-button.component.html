@@ -1,0 +1,4 @@
+<button mat-flat-button [color]="buttonOptions.backgroundColor" type="button" [ngClass]="buttonOptions.buttonClass"
+  class="google-btn" (click)="gotoAuthUrl()">
+  {{buttonOptions?.title || 'Google Authentication'}}
+</button>

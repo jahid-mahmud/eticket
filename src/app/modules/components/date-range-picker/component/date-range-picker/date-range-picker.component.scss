@@ -1,0 +1,27 @@
+.date-range-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+:host ::ng-deep {
+  .mat-form-field-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+    .mat-form-field-appearance-outline.mat-focused
+      .mat-form-field-outline-thick {
+      border-style: none !important;
+    }
+  }
+
+}

@@ -1,0 +1,543 @@
+<div class="flex flex-col sm:flex-row items-start md:items-start sm:justify-center md:justify-start flex-auto min-w-0"
+  style="overflow-y: hidden; max-height: 100vh">
+  <div
+    class="relative hidden md:flex flex-auto border-b-4 border-primary items-center justify-center w-1/2 md:w-7/12 h-full  lg:px-28 overflow-hidden bg-secondary dark:border-l"
+    style="padding: 227px !important;">
+    <!-- Background - @formatter:off -->
+    <!-- Rings -->
+    <img src="assets/images/logo/logo.svg" alt="Logo image" style="width: 361.37px; height: 130px;" />
+    <!-- Dots -->
+
+    <!-- @formatter:on -->
+    <!-- Content -->
+  </div>
+  <div style="padding: 10px; background-color: white" class="w-full sm:w-auto md:h-full md:w-1/2 xl:7/11">
+    <div
+      class="md:flex md:items-start md:justify-around w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card"
+      style="
+        overflow-y: auto;
+        max-height: 100vh;
+        background-color: #ffffff !important;
+        width: 100% !important;
+        height: 100%;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1) !important;
+      ">
+      <div fxLayout="column" fxLayoutGap="32px" style="max-width: 520px !important">
+        <div fxLayout="column" fxLayoutGap="12px" *ngIf="currentStep == 0">
+          <h2 style="
+              color: #212121;
+              font-weight: 700;
+              font-size: 28px;
+              line-height: 125%;
+            ">
+            {{ "welcome-Salon" | transloco }}
+          </h2>
+          <p style="
+            color: #212121;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 1.4;
+          ">
+            {{'coop-message'|transloco}}
+          </p>
+        </div>
+        <div>
+          <h2 style="
+              color: #212121;
+              font-weight: 700;
+              font-size: 24px;
+              line-height: 140%;
+            ">
+            {{ "register-account" | transloco }}
+          </h2>
+        </div>
+        <div style="width: 100%">
+          <mat-stepper #stepper linear (selectionChange)="onSelectionChangeStep($event)">
+            <mat-step [stepControl]="signInFormOne" label="{{ 'steper' | transloco }}">
+              <div fxLayout="column" fxLayoutGap="32px">
+                <form [formGroup]="signInFormOne" (keydown.enter)="$event.preventDefault()">
+                  <div fxLayout="column" fxLayoutGap="24px">
+                    <div fxLayout="column" fxLayoutGap="16px">
+                      <h2 style="
+                          font-weight: 700;
+                          font-size: 16px;
+                          color: #212121;
+                        ">
+                        {{ "investor-type" | transloco }}
+                      </h2>
+                      <mat-form-field class="w-full" floatLabel="always">
+                        <mat-label>{{ "investor-type" | transloco }}</mat-label>
+                        <mat-select placeholder="{{'select-investor'|transloco}}" panelClass="dropDown-seasons-panel" required
+                          formControlName="investorTtype" (selectionChange)="onSelectionChange($event)">
+                          <mat-option [value]="item" *ngFor="let item of investorTypes">{{ item | lowercase | transloco
+                            }}</mat-option>
+                        </mat-select>
+                        <mat-icon style="position: absolute; right: 10px !important">arrow_drop_down</mat-icon>
+                        <mat-error *ngIf="
+                            signInFormOneControls?.investorTtype?.hasError(
+                              'required'
+                            )
+                          ">
+                          {{ 'investor-required' | transloco }}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div>
+                      <div fxLayout="column" fxLayoutGap="16px">
+                        <h2 style="
+                            font-weight: 700;
+                            font-size: 16px;
+                            color: #212121;
+                          ">
+                          {{ "personal-info" | transloco }}
+                        </h2>
+                        <mat-form-field class="w-full" floatLabel="always">
+                          <mat-label>{{ "salutation" | transloco }}</mat-label>
+                          <mat-select panelClass="dropDown-seasons-panel" placeholder="{{'select-salutation'|transloco}}"
+                            formControlName="salutation">
+                            <mat-option [value]="item" *ngFor="let item of salutations">{{ item | lowercase | transloco
+                              }}</mat-option>
+                          </mat-select>
+                          <mat-icon style="position: absolute; right: 10px !important">arrow_drop_down</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{ "f-name" | transloco }}</mat-label>
+                          <input matInput placeholder="{{ 'f-name' | transloco }}" formControlName="firstName"
+                            required />
+                          <mat-error *ngIf="
+                              signInFormOneControls?.firstName?.hasError(
+                                'required'
+                              )
+                            ">
+                            {{'fname-reqiured' | transloco}}
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{ "s-name" | transloco }}</mat-label>
+                          <input matInput placeholder="{{ 's-name' | transloco }}" formControlName="surName" required />
+                          <mat-error *ngIf="
+                              signInFormOneControls?.surName?.hasError(
+                                'required'
+                              )
+                            ">
+                            {{'sname-required'|transloco}}
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{ "email" | transloco }}</mat-label>
+                          <input matInput placeholder="{{ 'email' | transloco }}" formControlName="email" type="email"
+                            required />
+                          <mat-error *ngIf="
+                              signInFormOneControls?.email?.hasError('required')
+                            ">
+                            {{'email-requird' | transloco}}
+                          </mat-error>
+                          <mat-error *ngIf="
+                              signInFormOneControls?.email?.hasError('email') &&
+                              signInFormOneControls?.email?.dirty
+                            ">
+                            {{'email-requird' | transloco}}
+                          </mat-error>
+                        </mat-form-field>
+                        <div>
+                          <!-- Mobile field -->
+                          <mat-form-field class="w-full" floatLabel="always">
+                            <mat-label class="text-sm">{{
+                              "mobile-num" | transloco
+                              }}</mat-label>
+                            <ngx-mat-intl-tel-input #phoneNumber [enablePlaceholder]="true"
+                              placeholder="{{ 'mobile-num' | transloco }}" [enableSearch]="true" name="phone"
+                              formControlName="mobile">
+                            </ngx-mat-intl-tel-input>
+                            <mat-error *ngIf="
+                                signInFormOneControls?.mobile?.invalid
+                              ">
+                              {{'invalid-phone'|transloco}}
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <app-date-range-picker #birhdatePicker class="w-full" [label]="'d-of-b' | transloco"
+                          [dataRangeType]="dateRangeType" [selectedDate]="selectedDate"
+                          (onDateRangeChange)="onChangeBirthDate($event)">
+                        </app-date-range-picker>
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{ "profession" | transloco }}</mat-label>
+                          <input matInput placeholder="{{ 'profession' | transloco }}" required formControlName="profession" />
+                          <mat-error *ngIf="
+                              signInFormOneControls?.profession.hasError(
+                                'required'
+                              )
+                            ">
+                            {{'profession-req' | transloco}}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div>
+                      <div fxLayout="column" fxLayoutGap="16px">
+                        <h2 style="
+                            font-weight: 700;
+                            font-size: 16px;
+                            color: #212121;
+                          ">
+                          {{ "location-info" | transloco }}
+                        </h2>
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{'street-add'|transloco}}</mat-label>
+                          <input matInput required formControlName="address"
+                            placeholder="{{'street-add'|transloco}}" />
+                          <mat-error *ngIf="
+                              signInFormOneControls?.address.hasError('required')
+                            ">
+                            {{'street-add-req'|transloco}}
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-full" floatLabel="always">
+                          <mat-label>{{ 'city' | transloco }}</mat-label>
+                          <input matInput placeholder="{{ 'city' | transloco }}" formControlName="city" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{ "post-code" | transloco }}</mat-label>
+                          <input matInput required placeholder="{{ 'post-code' | transloco }}" formControlName="postCode" />
+                          <mat-error *ngIf="
+                              signInFormOneControls?.postCode.hasError(
+                                'required'
+                              )
+                            ">
+                            {{'post-code-req'|transloco}}
+                          </mat-error>
+                        </mat-form-field>
+
+
+                        <app-country-dropdown-flags  formControlName="country" ngDefaultControl [formGroup]="signInFormOne">
+                        </app-country-dropdown-flags>
+
+
+
+                      </div>
+                    </div>
+                    <div *ngIf="isCompany">
+                      <div fxLayout="column" fxLayoutGap="16px">
+                        <h2 style="
+                            font-weight: 700;
+                            font-size: 16px;
+                            color: #212121;
+                          ">
+                          {{ "company-info" | transloco }}
+                        </h2>
+
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{ "company" | transloco }}</mat-label>
+                          <input matInput placeholder="{{ 'company' | transloco }}" formControlName="companyName"
+                            required />
+                            <mat-error *ngIf="
+                            signInFormOneControls?.companyName.hasError(
+                              'required'
+                            )
+                          ">
+                          {{'company-req'|transloco}}
+                        </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{
+                            "obj-of-business" | transloco
+                            }}</mat-label>
+                          <input matInput placeholder="{{ 'obj-of-business' | transloco }}"
+                            formControlName="objectOfBusiness" required />
+                            <mat-error *ngIf="
+                            signInFormOneControls?.objectOfBusiness.hasError(
+                              'required'
+                            )
+                          ">
+                          {{'obj-of-business-req'|transloco}}
+                        </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{
+                            "company-reg-no" | transloco
+                            }}</mat-label>
+                          <input matInput placeholder="{{ 'company-reg-no' | transloco }}"
+                            formControlName="companyRegNumber" required />
+                          <mat-error *ngIf="
+                              signInFormOneControls?.email?.hasError('required')
+                            ">
+                            {{'company-reg-req'|transloco}}
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <button mat-button (click)="onCancel($event)" style="
+                    color: #212121;
+                    font-weight: 600;
+                    font-size: 16px;
+                  ">
+                      {{ "cancel" | transloco }}
+                    </button>
+                    <button mat-button matStepperNext>
+                      <span style="
+                          color: #212121;
+                          font-weight: 600;
+                          font-size: 16px;
+                        ">{{ "next" | transloco }}</span>
+                      <mat-icon style="color: #212121; font-size: 20px">keyboard_arrow_right</mat-icon>
+                    </button>
+                  </div>
+                </form>
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="6px">
+                  <span style="font-weight: 400; font-size: 16px">{{
+                    "already-register" | transloco
+                    }}</span><a class="text-md font-medium text-center text-primary-700 hover:underline"
+                    (click)="navigateToLogin()" style="
+                      color: #d1a900;
+                      cursor: pointer;
+                      font-weight: 600 !important;
+                      font-size: 16px !important;
+                    ">Login</a>
+                </div>
+              </div>
+            </mat-step>
+            <mat-step [stepControl]="signInFormTwo" label="{{ 'steper' | transloco }}">
+              <div fxLayout="column" fxLayoutGap="32px">
+                <div fxLayout="column" fxLayoutGap="32px">
+                  <h2 style="color: #212121; font-weight: 600; font-size: 16px">
+                    {{ "legal-regulation-message" | transloco }}
+                  </h2>
+                  <fuse-alert style="
+                      margin-top: 32px !important;
+                      margin-bottom: 32px !important ;
+                    " *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+                    [@shake]="alert.type === 'error'">
+                    {{ alert.message | titlecase }}
+                  </fuse-alert>
+                  <form [formGroup]="signInFormTwo" (submit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+                    <div fxLayout="column" fxLayoutGap="40px">
+                      <div fxLayout="column" fxLayoutGap="16px">
+                        <mat-form-field class="w-full" floatLabel="always">
+                          <mat-label>{{
+                            "document-type" | transloco
+                            }}</mat-label>
+                          <mat-select panelClass="dropDown-seasons-panel" required formControlName="documentType"
+                            placeholder="{{'enter-doc-type'|transloco}}">
+                            <mat-option [value]="doc" *ngFor="let doc of documentTypes">{{ doc }}</mat-option>
+                          </mat-select>
+                          <mat-icon style="position: absolute; right: 10px !important">arrow_drop_down</mat-icon>
+                          <mat-error *ngIf="
+                              signInFormTwoControls?.documentType.hasError(
+                                'required'
+                              )
+                            ">
+                            {{'document-required' | transloco}}
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{
+                            "document-number" | transloco
+                            }}</mat-label>
+                          <input placeholder="{{'enter-doc-no'|transloco}}" matInput required
+                            formControlName="documentNumber" />
+                          <mat-error *ngIf="
+                              signInFormTwoControls?.documentNumber.hasError(
+                                'required'
+                              )
+                            ">
+                            {{'docnumber-required' | transloco}}
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                          <mat-label>{{
+                            "issue-authority" | transloco
+                            }}</mat-label>
+                          <input matInput placeholder="{{'issue-authority'|transloco}}" required formControlName="issuingAuthority" />
+                          <mat-error *ngIf="
+                              signInFormTwoControls?.issuingAuthority.hasError(
+                                'required'
+                              )
+                            ">
+                            {{'issueauthority-req' | transloco}}
+                          </mat-error>
+                        </mat-form-field>
+
+                        <app-date-range-picker #issueDatePicker class="w-full" [label]="'date-of-issue' | transloco"
+                          [dataRangeType]="dateRangeType" [selectedDate]="selectedIssueDate" [required]="true"
+                          (onDateRangeChange)="onChangeIssueDate($event)">
+                        </app-date-range-picker>
+                        <app-date-range-picker #expiryDatePicker class="w-full" [min]="selectedIssueDate"
+                          [label]="'expiry-date' | transloco" [dataRangeType]="dateRangeType"
+                          [selectedDate]="selectedExpiryDate" (onDateRangeChange)="onChangeExpiryDate($event)">
+                        </app-date-range-picker>
+
+                        <div style="
+                            padding: 24px;
+                            gap: 24px;
+                            background: #fafafa;
+                            border: 1px solid #e0e0e0;
+                          " fxLayout="column" fxLayoutAlign="center center">
+                          <input hidden type="file" multiple="true" (change)="
+                              onFileChange($event.target.files, $event.target)
+                            " #fileInput />
+                          <span style="
+                              color: #212121;
+                              font-weight: 500;
+                              font-size: 14px;
+                              color: #212121;
+                            ">{{ "upload-message" | transloco }}</span>
+                          <button style="background: #feffe7" mat-stroked-button (click)="
+                              fileInput.click();
+                              $event.preventDefault();">
+                            <mat-icon style="
+                                margin-right: 8px;
+                                color: #212121;
+                                font-size: 20px;
+                              ">file_upload</mat-icon>
+                            <span style="
+                                color: #212121;
+                                font-weight: 500;
+                                font-size: 14px;
+                                color: #212121;
+                              ">{{ "upload-files" | transloco }}</span>
+                          </button>
+                        </div>
+                        <ng-container *ngIf="files && files?.length > 0">
+                          <div>
+                            <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full"
+                              *ngFor="let file of files; let i = index" style=" background:rgb(254, 255, 231);
+                            border: 1px solid rgb(247, 221, 0);
+                            border-radius: 4px;padding: 10px 20px;margin-bottom: 20px;">
+                              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
+                                <mat-icon style="color: red;"> picture_as_pdf </mat-icon><span
+                                  style="color: #212121;">{{ file.name }}</span>
+                              </div>
+                              <button mat-icon-button (click)="onFileClose(file, i)" class="back-btn">
+                                <mat-icon style="color: #212121;">close</mat-icon>
+                              </button>
+                            </div>
+
+                          </div>
+                        </ng-container>
+                      </div>
+                      <div fxLayout="column" fxLayoutGap="24px">
+                        <h2 style="
+                            font-weight: 700;
+                            font-size: 16px;
+                            color: #212121;
+                          ">
+                          {{ "bank-details" | transloco }}
+                        </h2>
+
+                        <div>
+                          <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                            <mat-label>{{'iban'|transloco}}</mat-label>
+                            <input matInput formControlName="iBan" required placeholder="IBAN" />
+                            <mat-error *ngIf="
+                                signInFormTwoControls?.iBan.hasError('required')
+                              ">
+                              {{'iban-required' | transloco}}
+                            </mat-error>
+                          </mat-form-field>
+                          <mat-form-field appearance="fill" class="w-full" floatLabel="always">
+                            <mat-label>{{'bic'|transloco}}
+                              <span>{{
+                                "bic-message" | transloco
+                                }}</span>
+                            </mat-label>
+                            <input matInput formControlName="bic" placeholder="{{'bic'|transloco}} {{'bic-message' | transloco}}" />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div fxLayout="column" fxLayoutGap="40px">
+                    <section class="example-section" fxLayout="column" fxLayoutGap="8px">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-checkbox class="example-margin" style="
+                        color: #212121;
+                        font-weight: 500;
+                        font-size: 13px;
+                      " [(ngModel)]="checkTerms"></mat-checkbox>
+                          <p class="linkH" style="font-weight: 500;
+                          font-size: 13px;cursor: pointer;" (click)="navigateterm()">{{
+                            "term-condition-message" | transloco
+                            }}</p>
+                      </div>
+
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <mat-checkbox class="example-margin" style="
+                        color: #212121;
+                        font-weight: 500;
+                        font-size: 13px;
+                      " [(ngModel)]="checkWarnings"></mat-checkbox>
+                          <p class="linkH" style="font-weight: 500;
+                          font-size: 13px;cursor: pointer;" (click)="navigatewarn()">{{
+                            "term-condition-warning" | transloco
+                            }}</p>
+                      </div>
+
+                      <mat-checkbox class="example-margin" style="
+                          color: #212121;
+                          font-weight: 500;
+                          font-size: 13px;
+                        " [(ngModel)]="newsLetterSubscribed">{{ "newsletter-message" | transloco }}</mat-checkbox>
+                    </section>
+
+                    <div fxLayout="column" fxLayoutGap="40px">
+                      <div fxLayout="row" fxLayoutGap="16px">
+                        <div style="width: 100%">
+                          <button mat-button class="w-full cancel-button" matStepperPrevious>
+                            {{ "cancel" | transloco }}
+                          </button>
+                        </div>
+                        <div style="width: 100%">
+                          <button mat-button class="w-full submit-btn" (click)="onSubmit()" [disabled]="
+                              signInFormTwo.disabled ||
+                              signInFormTwo.invalid ||
+                              !checkTerms ||
+                              !checkWarnings
+                            " [ngClass]="
+                            signInFormTwo.invalid ||
+                            !checkTerms ||
+                            !checkWarnings?'submit-btn--disabled':'submit-btn'">
+                            <span *ngIf="!isSubmitting">
+                              <span style="color: #222 !important">{{
+                                "submit" | transloco
+                                }}</span>
+                            </span>
+                            <mat-progress-spinner *ngIf="isSubmitting" [diameter]="24" [mode]="'indeterminate'">
+                            </mat-progress-spinner>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="6px">
+                        <span style="font-weight: 400; font-size: 16px">{{
+                          "already-register" | transloco
+                          }}</span><a class="text-md font-medium text-center text-primary-700 hover:underline"
+                          [routerLink]="['/sign-in']" style="
+                            color: #d1a900;
+                            cursor: pointer;
+                            font-weight: 600 !important;
+                            font-size: 16px !important;
+                          ">Login</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button mat-button matStepperPrevious>
+                    <mat-icon>keyboard_arrow_left</mat-icon>
+                    <span>{{ "previous" | transloco }}</span>
+                  </button>
+                </div>
+              </div>
+            </mat-step>
+          </mat-stepper>
+        </div>
+        <div class="flex justify-center" style="margin-top: 30px !important ">
+          <app-language-toogle-button></app-language-toogle-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

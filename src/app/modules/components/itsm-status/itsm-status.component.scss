@@ -1,0 +1,22 @@
+.status-wrapper {
+    height: 100%;
+    width: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.error {
+    color: #FF4646;
+    border: 1px #FF4646 solid;
+}
+.success {
+    color: #00AE5B;
+    border: 1px #00AE5B solid;
+}
+.warning {
+    color: #F4A100;
+    border: 1px #F4A100 solid;
+}

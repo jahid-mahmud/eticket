@@ -1,0 +1,105 @@
+<div fxFlex="100" fxLayout="column">
+    <div>
+      <fuse-card class="min-h-70">
+        <div
+          fxFlex="100"
+          fxLayout="column"
+          class="bg-card shadow overflow-hidden"
+        >
+          <!-- Header -->
+          <itsm-header-bar
+            [title]="activityId ? 'Update Activity' : 'Add New Activity'"
+            [backUrl]="backUrl"
+          >
+            <button
+              type="button"
+              mat-stroked-button
+              [color]="'disabled'"
+              (click)="onClickBack()"
+            >
+              Cancel
+            </button>
+            <button
+              class="ml-5"
+              type="button"
+              mat-flat-button
+              [disabled]="form.invalid"
+              [color]="form.invalid?'':'primary'"
+              (click)="onClickSave()"
+            >
+              {{ activityId ? "Update" : "Save" }}
+            </button>
+          </itsm-header-bar>
+  
+          <form [formGroup]="form">
+            <div fxLayout="column" fxFlex="100">
+              <div class="add-wrapper">
+                <div class="grid grid-cols-2 gap-x-4">
+                  <div class="cols-span-2">
+                    <h2 class="text-xl font-bold mb-2 mt-2">Basic info</h2>
+                  </div>
+  
+                  <div class="col-span-2">
+                    <!-- Name field -->
+                    <mat-form-field class="w-full">
+                      <mat-label class="text-sm">Activity Name</mat-label>
+                      <input
+                        id="name"
+                        placeholder="Enter customer name"
+                        formControlName="ActivityName"
+                        matInput
+                        required
+                      />
+                      <mat-error *ngIf="hasValidationError('ActivityName')">
+                        Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div>
+                    <mat-form-field class="w-full">
+                        <mat-label class="text-sm">Activity Code</mat-label>
+                        <input
+                          id="name"
+                          placeholder="Enter customer name"
+                          formControlName="ActivityCode"
+                          matInput
+                          required
+                        />
+                        <mat-error *ngIf="hasValidationError('ActivityCode')">
+                            Activity Code is required
+                        </mat-error>
+                      </mat-form-field>
+                  </div>
+
+                  <div>
+                    <mat-form-field class="w-full">
+                        <mat-label class="text-sm">Description</mat-label>
+                        <input
+                          id="name"
+                          placeholder="Enter customer name"
+                          formControlName="Description"
+                          matInput
+                          required
+                        />
+                        <mat-error *ngIf="hasValidationError('Description')">
+                            Description Code is required
+                        </mat-error>
+                      </mat-form-field>
+                  </div>
+  
+                  <div class="pt-8 pl-10">
+                    <mat-label class="text-base mt-4 mr-4">IsActive</mat-label>
+                    <mat-slide-toggle
+                      color="primary"
+                      formControlName="IsActive"
+                    ></mat-slide-toggle>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </fuse-card>
+    </div>
+  </div>
+  

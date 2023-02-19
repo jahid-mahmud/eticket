@@ -1,0 +1,27 @@
+.tabbed-card {
+    &.tabbed-card-top .mat-ink-bar {
+        top: 0;
+
+    }
+    .mat-ink-bar {
+        height: 4px !important;
+    }
+
+    .mat-tab-label.mat-tab-label-active {
+        background-color: #deeeff;
+    }
+
+    .mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label {
+        height: 88px;
+    }
+
+    .mat-tab-label-content {
+        width: 100%;
+        display: block !important;
+    }
+
+    .mat-tab-label {
+        display: block;
+        width: 100%;
+    }
+}

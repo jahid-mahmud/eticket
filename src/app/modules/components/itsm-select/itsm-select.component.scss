@@ -1,0 +1,13 @@
+.itsm-select-input {
+    height: 45px;
+    padding-left: 10px;
+    position: sticky;
+    top: 0px;
+    background: white;
+    z-index: 100;
+}
+
+.not-found {
+    color: #9E9E9E !important;
+    pointer-events: none;
+}

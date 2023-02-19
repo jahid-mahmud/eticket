@@ -1,0 +1,28 @@
+<ng-container [formGroup]="form">
+  <mat-form-field class="w-full">
+    <mat-label *ngIf="label" class="text-sm">{{label}}</mat-label>
+
+    <mat-select [formControlName]="controlName" [required]="required" [placeholder]="placeholder">
+      <input [placeholder]="placeholder" autocomplete="off" matInput type="text" (blur)="onBlur($event)"
+        (keyup)="onKeyUp($event.target.value)" class="itsm-select-input">
+
+      <mat-option class="not-found" *ngIf="selectedList.length == 0" [value]="''"> No {{label}} found</mat-option>
+
+      <ng-container *ngIf="isFlatData; else objectList">
+        <mat-option *ngFor="let option of selectedList; let i = index" [value]="option" (click)="onClickOption(option)">
+          {{option}}</mat-option>
+      </ng-container>
+
+      <ng-template #objectList>
+        <mat-option *ngFor="let option of selectedList; let i = index" [value]="option[valueKey]"
+          (click)="onClickOption(option)">{{option[textKey]}}
+        </mat-option>
+      </ng-template>
+
+    </mat-select>
+
+    <mat-error *ngIf="hasValidationError(controlName)">
+      {{label}} is required
+    </mat-error>
+  </mat-form-field>
+</ng-container>

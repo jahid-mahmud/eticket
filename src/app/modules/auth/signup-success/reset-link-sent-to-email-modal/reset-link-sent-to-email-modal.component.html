@@ -1,0 +1,18 @@
+<div style="height:100% ;width:100%;display:flex;align-items: center;justify-content: center;background: white;" >
+    <div fxLayout="column" fxLayoutGap="48px" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutGap="32px" style="text-align:center; max-width: 750px;">
+            <h1 style="font-style: normal;
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 39px;
+            text-align: center;
+            color: #000000;">{{'thankyou-signup' | transloco}}.</h1>
+            <p style="font-weight: 400;
+            font-size: 20px;
+            line-height: 1.5;
+            text-align: center;
+            color: #000000;">{{'confirmation-link' | transloco}}</p>
+        </div>
+        <button mat-button [routerLink]="['/sign-in']" routerLinkActive="router-link-active" ><mat-icon style="color: #212121;margin-right: 8px;">arrow_back</mat-icon> <span>{{'back-to-home'|transloco}}</span></button>
+    </div>
+</div>

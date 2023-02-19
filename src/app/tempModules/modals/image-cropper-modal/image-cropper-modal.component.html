@@ -1,0 +1,46 @@
+<div fxLayout="column" fxLayoutGap="32px" style="padding:20px 32px;">
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="border-bottom:1px solid rgb(224, 224, 224);margin: 0 auto;margin-top: 20px;padding-bottom: 15px;" >
+        <h1 *ngIf="data?.cover" style="font-size: 26px;font-weight:700;color:#212121;max-width: 450px;">{{'crop-to-set-cover'|transloco}}</h1>
+        <h1 *ngIf="!data?.cover" style="font-size: 26px;font-weight:700;color:#212121;max-width: 450px;">{{'crop-to-set-profile'|transloco}}</h1>
+        <button mat-icon-button (click)="dialogRef.close()" class="back-btn">
+          <mat-icon style="color: #212121;font-size:32px">close</mat-icon>
+        </button>
+      </div>
+    <div >
+        <input type="file" hidden (change)="fileChangeEvent($event)" />
+    
+    
+    <div style="max-width:500px;min-width: 500px;margin: 0 auto;" >
+        <div *ngIf="data?.cover">
+            <image-cropper style="width: 500px;max-height:350px;object-fit: cover;margin:0 auto"
+              [resizeToHeight]="130"  [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4/1"
+                format="png" [imageFile]="data?.image" (imageCropped)="imageCropped($event)"
+                [maintainAspectRatio]="true"
+                (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+            </image-cropper>
+    
+        </div>
+    
+        <div *ngIf="!data?.cover">
+            <image-cropper style="width: 300px;max-height:350px;object-fit: cover;margin:0 auto"
+             [resizeToWidth]="120" [resizeToHeight]="120"  [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1/1"
+                format="png" [imageFile]="data?.image" (imageCropped)="imageCropped($event)"
+                [cropperStaticHeight]="220"
+                [cropperStaticWidth]="220"
+                (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+            </image-cropper>
+    
+        </div>
+    
+    
+        <!-- <div style="
+        margin: 0 auto;height: 163px;overflow: hidden;">
+            <img [src]="croppedImage" style="object-fit: contain;" />
+        </div> -->
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" style="border-top:1px solid rgb(224, 224, 224);margin: 0 auto;padding-top:20px;margin-top: 20px;">
+            <button mat-button class="cancel-btn" style="width:50% ;" (click)="dialogRef.close()">{{'cancel'|transloco}}</button>
+            <button mat-button class="update-btn" style="width:50% ;background-color:#f7dd00 !important" (click)="onSave()">{{'save'|transloco}}</button>
+        </div>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<fuse-card class="min-h-70 w-full tabbed-card flex flex-col gap-5"
+    [ngClass]="{'tabbed-card-top':tabBarPosition === 'top'}">
+    <span *ngIf="dateView" class="flex flex-row items-center content-center m-4">
+
+
+        <app-date-range-picker class="mr-2" [dataRangeType]="'rangePicker'"
+            (onDateRangeChange)="onDateRangeChange($event)" [selectedDate]="selectedDate">
+        </app-date-range-picker>
+        <div class="mr-2 mt-1 justify-center place-self-center cursor-pointer" (click)="onSelectViewChange('chart')"
+            *ngIf="chartMode">
+            <mat-icon [class.selected]="!tableView">insert_chart</mat-icon>
+        </div>
+
+        <div *ngIf="chartMode" class="mr-2 mt-1 justify-center place-self-center cursor-pointer"
+            (click)="onSelectViewChange('table')">
+            <mat-icon [class.selected]="tableView">table_chart</mat-icon>
+        </div>
+    </span>
+    <mat-tab-group class="w-full" mat-stretch-tabs [animationDuration]="animationDuration"
+        (selectedTabChange)="onTabChange($event)">
+        <mat-tab *ngFor="let tab of tabConfig" [disabled]="tab.disabled">
+            <!-- Label -->
+            <ng-template matTabLabel>
+                <div *ngIf="tab.labelTemplate; else defaultLabelTemplate">
+                    <ng-container
+                        *ngTemplateOutlet="tab.labelTemplate; context: { label: tab.label, subTitle : tab.subTitle, toolTipData : tab.toolTipData }">
+                    </ng-container>
+                </div>
+            </ng-template>
+            <ng-template #defaultLabelTemplate>
+                {{tab.label}}
+            </ng-template>
+
+            <!-- Content -->
+            <ng-template matTabContent>
+                <div *ngIf="tab.contentTemplate; else defaultContentTemplate">
+                    <ng-container *ngTemplateOutlet="tab.contentTemplate"></ng-container>
+                </div>
+            </ng-template>
+            <ng-template #defaultContentTemplate>
+                Passed Content Template
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</fuse-card>

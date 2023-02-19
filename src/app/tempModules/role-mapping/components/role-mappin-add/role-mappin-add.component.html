@@ -1,0 +1,118 @@
+<div fxFlex="100" fxLayout="column">
+  <div>
+    <fuse-card class="min-h-70">
+      <div
+        fxFlex="100"
+        fxLayout="column"
+        class="bg-card shadow overflow-hidden"
+      >
+        <!-- Header -->
+        <itsm-header-bar
+          [title]="
+            roleMappingId ? 'Update Role Mapping' : 'Add New Role Mapping'
+          "
+          [backUrl]="backUrl"
+        >
+          <button
+            type="button"
+            mat-stroked-button
+            [color]="'disabled'"
+            (click)="onClickBack()"
+          >
+            Cancel
+          </button>
+          <button
+            class="ml-5"
+            type="button"
+            mat-flat-button
+            [disabled]="form.invalid"
+            [color]="form.invalid ? '' : 'primary'"
+            (click)="onClickSave()"
+          >
+            {{ roleMappingId ? "Update" : "Save" }}
+          </button>
+        </itsm-header-bar>
+
+        <form [formGroup]="form">
+          <div class="add-wrapper">
+            <div class="grid grid-cols-2 gap-x-4">
+              <div class="cols-span-2">
+                <h2 class="text-xl font-bold mb-2 mt-2">Basic info</h2>
+              </div>
+
+              <div class="col-span-2">
+                <section class="example-section" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+                  <mat-checkbox *ngFor="let activity of activities" class="example-margin">{{activity.ActivityName}}</mat-checkbox>
+                </section>
+              </div>
+
+              <div>
+                <mat-form-field class="w-full">
+                  <mat-label>Designation</mat-label>
+                  <mat-select
+                    [placeholder]="'Select Type'"
+                    [formControlName]="'DesignationId'"
+                    [required]="true"
+                  >
+                    <mat-option
+                      *ngFor="let designation of designations"
+                      [value]="designation.DesignationId"
+                    >
+                      {{ designation.DesignationName }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="hasValidationError('DesignationId')">
+                    Designation ID is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="pt-8 pl-10">
+                <mat-label class="text-base mt-4 mr-4">IsActive</mat-label>
+                <mat-slide-toggle
+                  color="primary"
+                  formControlName="IsActive"
+                ></mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+          <!-- <div fxLayout="column" fxFlex="100">
+            <div class="add-wrapper">
+              <div class="grid grid-cols-2 gap-x-4">
+                <div class="cols-span-2">
+                  <h2 class="text-xl font-bold mb-2 mt-2">Basic info</h2>
+                </div>
+
+                <div class="col-span-2">
+                  <mat-form-field>
+                    <mat-label>Favorite Designation</mat-label>
+                    <mat-select
+                      [placeholder]="'Select Type'"
+                      [formControlName]="'DesignationId'"
+                      [required]="true"
+                    >
+                      <mat-option
+                        *ngFor="let designation of designations"
+                        [value]="designation.DesignationId"
+                      >
+                        {{ designation.DesignationName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="pt-8 pl-10">
+                  <mat-label class="text-base mt-4 mr-4">IsActive</mat-label>
+                  <mat-slide-toggle
+                    color="primary"
+                    formControlName="IsActive"
+                  ></mat-slide-toggle>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </form>
+      </div>
+    </fuse-card>
+  </div>
+</div>

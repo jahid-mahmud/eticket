@@ -1,0 +1,17 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px" style="padding: 32px;">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="24px">
+        <div>
+            <img src="assets/images/check.svg" style="width: 48px;height:48px">
+        </div>
+    
+        <div>
+            <span style="font-weight: 700;font-size: 18px;">{{'congratulations' | transloco}}!</span>
+        </div>
+        <div>
+            <span style="font-weight: 400;font-size: 14px;">{{'successfully-submited' | transloco}}</span>
+        </div>
+    </div>
+
+    <button mat-button class="edit_profile__btn" style="width:120px" (click)="onOkClick()">OK</button>
+
+</div>

@@ -1,0 +1,89 @@
+<!-- Navigation -->
+<fuse-vertical-navigation
+  class="light print:hidden"
+  [mode]="isScreenSmall ? 'over' : 'side'"
+  [name]="'mainNavigation'"
+  [navigation]="data.navigation.default"
+  [opened]="!isScreenSmall"
+>
+  <!-- Navigation header hook -->
+  <ng-container fuseVerticalNavigationContentHeader>
+    <div class="flex items-center w-full p-4 pl-6">
+      <!-- Logo -->
+      <div class="flex items-center justify-center">
+        <img
+          class="w-40"
+          src="../../../../../assets/images/check.svg"
+          alt="Logo image"
+        />
+        <!-- <p class="text-md m-2">Salon Coop</p> -->
+      </div>
+      <!-- Components -->
+      <div class="flex items-center ml-auto"></div>
+    </div>
+    <!-- User -->
+    <!-- <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img class="w-full h-full rounded-full" *ngIf="data.user.avatar" [src]="data.user.avatar"
+                    alt="User avatar">
+                <mat-icon class="icon-size-24" *ngIf="!data.user.avatar" [svgIcon]="'heroicons_solid:user-circle'">
+                </mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div
+                    class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{data.user.fullname}}
+                </div>
+                <div
+                    class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{data.user.email}}
+                </div>
+            </div>
+        </div> -->
+  </ng-container>
+  <!-- Navigation footer hook -->
+  <ng-container fuseVerticalNavigationContentFooter>
+    <div class="h-16 bottom-0 absolute w-full footer-tech" style="background: #212121;padding: 16px 24px;">
+      <p class="">Technology and design by:</p>
+      <a class="" href="www.google.com" target="_blank"
+        >Jahid mahmud</a
+      >
+    </div>
+  </ng-container>
+</fuse-vertical-navigation>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0">
+  <!-- Header -->
+  <div
+  style="position: sticky;top:0px"
+    class="flex flex-0 items-center w-full h-15 px-2 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden"
+  >
+    <!-- Navigation toggle button -->
+    <button
+      style="width: 48px !important"
+      mat-icon-button
+      (click)="toggleNavigation('mainNavigation')"
+    >
+      <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+    </button>
+    <!-- Components -->
+    <div class="flex items-center tems-left pl-2 ml-auto space-x-2">
+      <!-- <mat-divider [vertical]="true"></mat-divider> -->
+      <!-- <app-global-project-type-setting></app-global-project-type-setting> -->
+      <!-- <language></language> -->
+      <!-- <button mat-icon-button (click)="signOut()">
+                <mat-icon>logout</mat-icon>
+            </button> -->
+      <user-menu [showAvatar]="false"></user-menu>
+    </div>
+  </div>
+  <div *ngIf="loaderService.isLoading|async" style="position:sticky;z-index: 999;width: 100%;top:60px">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+
+  <!-- Content -->
+  <div class="bg-white flex flex-col flex-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>

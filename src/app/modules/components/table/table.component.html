@@ -1,0 +1,54 @@
+<div class="mat-elevation-z0 table" class="" [class.spinner-overlay]="isLoading">
+  <div class="custom-table loading-shade" *ngIf="isLoading">
+    <mat-spinner [diameter]="40" *ngIf="isLoading"></mat-spinner>
+  </div>
+
+  <div class="responsive">
+    <table mat-table [dataSource]="data" *ngIf="data.length; else noDataFound" class="custom-table "
+      [class.text-center]="textCenter" [class.table-fixed]="textCenter">
+      <!-- Columns -->
+      <ng-container [matColumnDef]="config.key" *ngFor="let config of tableConfig.templateConfig">
+        <th mat-header-cell *matHeaderCellDef [class]="'w-auto ' + config.headerCellClass || ''"
+          [class.text-center]="textCenter" [class.p-0]="textCenter" [ngClass]="{'ml-2 pr-2 pl-2': !textCenter}">
+          <span *ngIf="config.headerTemplate; else defaultHeaderTemplate">
+            <ng-container *ngTemplateOutlet="
+              config.headerTemplate;
+              context: { config: config }
+            "></ng-container>
+          </span>
+          <ng-template #defaultHeaderTemplate>
+            <span [class.text-center]="textCenter">
+              {{ config.title | titlecase}}
+            </span>
+          </ng-template>
+        </th>
+        <td mat-cell *matCellDef="let row" (click)="onClickRow($event, row, config.key)"
+          [class]="'w-auto ' + config.classes || '' " [class.text-center]="textCenter" [class.p-0]="textCenter"
+          [class.cursor-pointer]="isCellClickable" [ngClass]="{'ml-2 pr-2 pl-2': !textCenter}">
+          <span *ngIf="config.cellTemplate; else defaultCellTemplate">
+            <ng-container
+              *ngTemplateOutlet="config.cellTemplate; context: { title: config.title, row: row, data: row[config.key] }">
+            </ng-container>
+          </span>
+          <ng-template #defaultCellTemplate>
+            <span> {{ row[config.key] }} </span>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <ng-template #noDataFound>
+    <hr />
+    <div class="flex-col flex items-center">
+      <mat-icon class="font-size-24">error</mat-icon>
+      <p class="font-size-16">No data to show</p>
+    </div>
+  </ng-template>
+  <ng-container *ngIf="hasPagination">
+    <mat-paginator #paginator [length]="tableConfig.totalDataLength" [pageSize]="tableConfig.itemsPerPage"
+      [pageSizeOptions]="tableConfig.pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
+  </ng-container>
+</div>

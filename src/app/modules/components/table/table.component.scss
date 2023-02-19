@@ -1,0 +1,38 @@
+.responsive {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 205px);
+}
+.custom-table {
+  width: 100%;
+  border: 1px solid #dfe4eb;
+  border-radius: 2px 2px 2px 2px;
+  word-wrap: break-word;
+  .mat-header-cell {
+    background-color: #f1f3f6;
+    border-radius: 2px 2px 2px 2px;
+  }
+
+  &.loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.spinner-overlay {
+  opacity: 0.4;
+  z-index: 1000;
+}
+
+table thead th {
+  position: sticky;
+  top: -1px;
+}

@@ -1,0 +1,139 @@
+<div fxLayout="column" class="w-full" fxLayoutGap="10px" style="overflow-y: hidden;max-height:calc(100vh -100px);">
+  <div class="w-full header" fxLayout="row" fxLayoutAlign="space-between center" style="padding: 24px;">
+    <h2 style="font-weight: 700; font-size: 24px; color: #212121">
+      User Management
+    </h2>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px" class="header__inputs">
+      <button mat-button class="download-btn" (click)="addUser()">
+        <mat-icon style="color: #212121;font-size: 14px;font-weight: 600;">add</mat-icon> <span
+          style="color: #212121;font-size: 14px;font-weight: 600;">Add User</span>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isLoading" style="width:100%;height:100%;padding:0px 24px 15px 24px" class=" mt-4">
+    <table style="width:100%;border-top: 1px solid  rgba(0, 0, 0, 0.12);border-bottom: 1px solid  rgba(0, 0, 0, 0.12);" *ngIf="isLoading">
+      <tbody>
+       <tr style="height:70px" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10];">
+           <td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);width:3%"></td>
+           <td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);width: 22%;">
+              <div style="display: flex;align-items:center;">
+                  <span class="img-loader"></span>
+                  <span class="span-loading" style="width:109px"></span>
+              </div>
+           </td>
+           <td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);" fxHide.xs>
+               <span class="span-loading" style="width:40%"></span>
+               <span class="span-loading" style="width:30%"></span>
+           </td>
+           <td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);" fxHide.xs>
+               <span class="span-loading" style="width:60%"></span>
+               <span class="span-loading" style="width:40%"></span>
+           </td>
+           <td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);" fxHide.xs>
+               <span class="span-loading" style="width:50%"></span>
+               <span class="span-loading" style="width:30%"></span>
+           </td>
+           <td style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);width:24%">
+              <div style="display:flex">
+               <span class="stats-loader" style="margin-left:10px"></span>
+               <span class="stats-loader"></span>
+               <span class="stats-loader"></span>
+              </div>
+    
+           </td>
+       </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="w-full mt-4" style="overflow-x:auto ;padding:0px 24px 15px 24px" *ngIf="!isLoading">
+    <div style="height:calc(69vh);max-width: 100%;display: block;
+    overflow-x: auto;
+    white-space: nowrap;margin: auto auto;">
+      
+      <table mat-table [dataSource]="datasources" matSort *ngIf="!isLoading">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="nameRow">Name</th>
+          <td mat-cell *matCellDef="let datasource"><span class="truncate" >{{ datasource.user.first_name }} {{
+              datasource.user.last_name }}</span></td>
+        </ng-container>
+
+        <ng-container matColumnDef="email" class="emailRow">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="emailRow">Email</th>
+          <td mat-cell *matCellDef="let datasource" style="font-weight: 500;font-size: 13px;"><span class="truncate"
+              style="display: inline-block;">{{ datasource.user.email }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="investorType" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="investorRow">Investor Type</th>
+          <td mat-cell *matCellDef="let datasource" class="truncate">
+            <span class="truncate" style="display: inline-block;">{{ datasource.account_type }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dob" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="dobRow">DOB / Company Register NO.</th>
+          <td mat-cell *matCellDef="let datasource" class="truncate">
+            <span class="truncate" style="display: inline-block;" *ngIf="datasource.account_type?.toLowerCase()=='company'">{{datasource?.commercial_register_number }}</span>
+            <span *ngIf="datasource.account_type?.toLowerCase()!=='company'" class="truncate" style="display: inline-block;"> {{ datasource?.date_of_birth| date }}</span>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="task" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="taskRow">Task</th>
+          <td mat-cell *matCellDef="let datasource" class="truncate">
+            <span class="truncate" style="display: inline-block;"> {{ datasource.profession }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status" class="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="status">Status</th>
+          <td mat-cell *matCellDef="let datasource">
+            <span style="border-radius: 100px" [ngStyle]="{
+              padding: '5.5px 12px;',
+              border:
+              datasource?.current_status?.toLowerCase() === 'activated'
+                  ? '1px solid #00AE5B;'
+                  : '1px solid #F4A100',
+              color:
+              datasource?.current_status?.toLowerCase() === 'activated'
+                  ? '#00AE5B'
+                  : '#F4A100'
+            }">{{ datasource?.current_status|titlecase }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action" class="actionRow" style="text-align: right">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: right">
+            Action
+          </th>
+          <td mat-cell *matCellDef="let datasource" style="text-align: right">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="back-btn">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="custommenu">
+              <button mat-menu-item (click)="navigateToProfile(datasource)">
+                <span>View Profile</span>
+              </button>
+              <button mat-menu-item (click)="deleteClientUserProfile(datasource?.user?.id)">
+
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+    </div>
+    <mat-paginator (page)="handlePageEvent($event)" *ngIf="!isLoading" #paginator [length]="length" [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
+      aria-label="Select page"
+      style="margin-top:10px ;">
+    </mat-paginator>
+  </div>
+</div>

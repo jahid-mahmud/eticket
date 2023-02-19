@@ -1,0 +1,59 @@
+<ng-container *ngIf="formArrayName">
+  <form [formGroup]="form">
+    <div class="responsive">
+    <table class="table-auto form-table w-full" [ngClass]="{'pointer-events-none': disabled}">
+      <thead>
+        <tr>
+          <ng-container *ngFor="let config of tableConfig.templateConfig">
+            <th [class]="'w-auto ' + (config.headerCellClass || '')" [class.text-center]="textCenter"
+              [class.p-0]="textCenter" [ngClass]="{'ml-2 pr-2 pl-2': !textCenter}">
+              <span *ngIf="config.headerTemplate; else defaultHeaderTemplate">
+                <ng-container *ngTemplateOutlet="config.headerTemplate;
+                context: { config: config }"></ng-container>
+              </span>
+              <ng-template #defaultHeaderTemplate>
+                <span class="default-th" [class.text-center]="textCenter">
+                  {{ config.title | titlecase}}
+                </span>
+              </ng-template>
+            </th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+
+
+        <ng-container [formArrayName]="formArrayName">
+          <ng-container *ngFor="let fromGroup of form.controls[formArrayName].controls; let i=index">
+            <ng-container [formGroup]="fromGroup">
+              <tr>
+                <td [class]="'w-auto ' + config.classes || '' " [class.text-center]="textCenter"
+                  [class.p-0]="textCenter" [ngClass]="{'ml-2 pr-2 pl-2': !textCenter}"
+                  *ngFor="let config of tableConfig.templateConfig">
+                  <span *ngIf="config.cellTemplate; else defaultTemplate">
+                    <ng-container
+                      *ngTemplateOutlet="config.cellTemplate; context: { title: config.title, form: fromGroup, data: fromGroup.value[config.control], index: i }">
+                    </ng-container>
+
+                  </span>
+                  <ng-template #defaultTemplate>
+                    <span class="default-td">{{fromGroup.get(config.control).value}}</span>
+                  </ng-template>
+
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+      </tbody>
+      
+      <tfoot *ngIf="footerTemplate">
+        <ng-container *ngTemplateOutlet="footerTemplate; context: { formarray: form.controls[formArrayName] }">
+        </ng-container>
+      </tfoot>
+
+    </table>
+    </div>
+  </form>
+</ng-container>

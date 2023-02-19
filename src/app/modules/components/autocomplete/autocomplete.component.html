@@ -1,0 +1,28 @@
+<ng-container [formGroup]="form">
+
+  <mat-form-field class="w-full">
+    <mat-label class="text-sm">{{label}}</mat-label>
+    <input type="text" [placeholder]="placeholder" matInput [formControlName]="controlName" [matAutocomplete]="auto"
+      (keyup)="filterAutoComplete($event.target.value)" [required]="required">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="autoCompleteDisplay.bind(this)">
+
+      <ng-container *ngIf="isFlatData; else objectList">
+        <mat-option *ngFor="let option of autoCompleteList; let i = index" [value]="option"
+          (click)="onClickOption(option)">{{option}}
+        </mat-option>
+      </ng-container>
+
+      <ng-template #objectList>
+        <mat-option *ngFor="let option of autoCompleteList; let i = index" [value]="option[valueKey]"
+          (click)="onClickOption(option)">{{option[textKey]}}
+        </mat-option>
+      </ng-template>
+
+    </mat-autocomplete>
+    
+    <mat-error *ngIf="hasValidationError(controlName)">
+      {{label}} is required
+    </mat-error>
+
+  </mat-form-field>
+</ng-container>

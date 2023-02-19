@@ -1,0 +1,38 @@
+<div [ngSwitch]="dataRangeType">
+    <div *ngSwitchCase="'rangePicker'" class="date-range-container" (click)="select.open()">
+        <mat-select #select (selectionChange)="dateRangeChanged($event)" [(value)]="selected" class="w-max">
+            <mat-select-trigger>
+                <mat-icon class="text-sm">calendar_today</mat-icon>{{selected}}
+            </mat-select-trigger>
+            <mat-option *ngFor="let date of dateRanges" [value]="date">
+                {{date}}
+            </mat-option>
+        </mat-select>
+
+    </div>
+    <div #matMonthPicker *ngSwitchCase="'matMonthPicker'">
+        <div class="date-range-container">
+            <mat-form-field appearance="fill">
+                <mat-icon class="text-sm">calendar_today</mat-icon>
+                <input matInput [matDatepicker]="dp" [formControl]="matDate">
+                <mat-datepicker-toggle matSuffix [for]="dp" [disabled]="disabled"></mat-datepicker-toggle>
+                <mat-datepicker #dp startView="year" (yearSelected)="chosenYearHandler($event)"
+                    (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+                </mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div #matDatePicker *ngSwitchCase="'matDatePicker'">
+        <div class="date-picker-container">
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label *ngIf="label" class="text-sm" >{{label}}</mat-label>
+                <input matInput [matDatepicker]="dp" [required] = "required" [formControl]="matDate" [min]="min" [max]="max"
+                    (dateChange)="chosenDateHandler('change',$event)" readonly>
+                <mat-datepicker-toggle matSuffix [for]="dp" [disabled]="disabled"></mat-datepicker-toggle>
+                <mat-datepicker #dp panelClass="example-month-picker">
+                </mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
